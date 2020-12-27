@@ -187,7 +187,7 @@ packages:
       name: flutter_api_services
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.2"
   flutter_auth_form:
     dependency: "direct main"
     description:
@@ -215,11 +215,25 @@ packages:
       name: flutter_models
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   flutter_profile_avatar:
     dependency: transitive
     description:
       name: flutter_profile_avatar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2+1"
+  flutter_profile_card:
+    dependency: "direct main"
+    description:
+      name: flutter_profile_card
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2+2"
+  flutter_profile_list:
+    dependency: "direct main"
+    description:
+      name: flutter_profile_list
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.2+1"

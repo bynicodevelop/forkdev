@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 id: UserModel.USERNAME,
                 icon: Icons.person,
                 label: 'Username',
-                value: userModel.status,
+                value: userModel.username,
                 onUpdated: (value) => print(value),
                 fieldPlaceholder: 'Enter your username'),
           );

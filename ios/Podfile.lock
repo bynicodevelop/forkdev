@@ -287,6 +287,8 @@ PODS:
     - Flutter
   - flutter_profile_avatar (0.0.1):
     - Flutter
+  - flutter_profile_list (0.0.1):
+    - Flutter
   - flutter_profile_manager (0.0.1):
     - Flutter
   - GoogleDataTransport (7.4.0):
@@ -352,6 +354,7 @@ DEPENDENCIES:
   - flutter_inputs (from `.symlinks/plugins/flutter_inputs/ios`)
   - flutter_mobile_camera (from `.symlinks/plugins/flutter_mobile_camera/ios`)
   - flutter_profile_avatar (from `.symlinks/plugins/flutter_profile_avatar/ios`)
+  - flutter_profile_list (from `.symlinks/plugins/flutter_profile_list/ios`)
   - flutter_profile_manager (from `.symlinks/plugins/flutter_profile_manager/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
 
@@ -395,6 +398,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_mobile_camera/ios"
   flutter_profile_avatar:
     :path: ".symlinks/plugins/flutter_profile_avatar/ios"
+  flutter_profile_list:
+    :path: ".symlinks/plugins/flutter_profile_list/ios"
   flutter_profile_manager:
     :path: ".symlinks/plugins/flutter_profile_manager/ios"
   path_provider:
@@ -419,6 +424,7 @@ SPEC CHECKSUMS:
   flutter_inputs: f1e2ad9e795af05a2d51f4900f4590869e1b99fd
   flutter_mobile_camera: 133e384346d13417238d632b9ba341a733f4c4c7
   flutter_profile_avatar: 1714e712a6b99db33006d7bb3a74db929f1bfab1
+  flutter_profile_list: b38a4363e0fc85a744faf1f51ce0bd0677b6a3de
   flutter_profile_manager: f34302946b34583fda442cde5204242ecd0dcee7
   GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3

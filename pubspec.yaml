@@ -26,7 +26,17 @@ dependencies:
 
   flutter_auth_form: ^0.0.1
   flutter_profile_manager: ^0.0.1+4
-  flutter_api_services: ^0.0.1
+  flutter_api_services:
+    ^0.0.2
+    # path: "../plugins/flutter_api_services"
+
+  flutter_profile_list:
+    ^0.0.2+1
+    # path: "../plugins/flutter_profile_list"
+
+  flutter_profile_card:
+    ^0.0.2+2
+    # path: "../plugins/flutter_profile_card"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
