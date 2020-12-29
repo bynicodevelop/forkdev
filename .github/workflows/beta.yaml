@@ -1,0 +1,10 @@
+name: Flutter release (beta)
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  release:
+    name: Build and release
+    runs-on: ubuntu-20.04
