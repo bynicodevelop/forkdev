@@ -38,8 +38,8 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
       ),
       body: StreamBuilder(
         stream: _userService.user,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.active) {
+        builder: (context, userSnapshot) {
+          if (userSnapshot.connectionState != ConnectionState.active) {
             return SizedBox.shrink();
           }
 
@@ -50,8 +50,12 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                 return SizedBox.shrink();
               }
 
-              snapshotUserModel.data.isFollow = snapshot.data.followingsList
-                  .contains(snapshotUserModel.data.uid);
+              dynamic result =
+                  snapshotUserModel.data.followersList.firstWhere((e) {
+                return e['ref'].id == userSnapshot.data.uid;
+              }, orElse: () => null);
+
+              snapshotUserModel.data.isFollow = result != null;
 
               return ProfileCard(
                 profile: snapshotUserModel.data,
@@ -60,11 +64,6 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
 
                   await _usersService.updateRelations(
                       userModel.uid, snapshotUserModel.data.uid);
-
-                  setState(() {
-                    snapshotUserModel.data.isFollow =
-                        !snapshotUserModel.data.isFollow;
-                  });
                 },
               );
             },

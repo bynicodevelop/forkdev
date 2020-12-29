@@ -39,6 +39,14 @@ class _ProfilesState extends State<Profiles> {
               return SizedBox.shrink();
             }
 
+            if (usersSnapshot.data.length == 0) {
+              return Container(
+                child: Center(
+                  child: Text('No profile found'),
+                ),
+              );
+            }
+
             return ProfileList(
               onTap: (profile) => Navigator.push(
                   context,

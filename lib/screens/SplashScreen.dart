@@ -21,6 +21,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
+    // UserService _userService = Provider.of<UserService>(context, listen: false);
+    // _userService.signOut();
+
     _streamSubscription =
         Provider.of<UserService>(context, listen: false).user.listen((user) {
       print('SplashScreen => UserModel: ${user?.toJson()}');
@@ -63,9 +66,12 @@ class _SplashScreenState extends State<SplashScreen> {
             padding: const EdgeInsets.symmetric(
               vertical: 20.0,
             ),
-            child: Image(
-              image: AssetImage('assets/images/logo.png'),
-              width: 150.0,
+            child: Hero(
+              tag: 'logo',
+              child: Image(
+                image: AssetImage('assets/images/logo.png'),
+                width: 150.0,
+              ),
             ),
           ),
           Padding(
