@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_api_services/UsersService.dart';
 import 'package:flutter_profile_list/flutter_profile_list.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:forkdev/screens/PublicProfileScreen.dart';
+import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
 
 class Profiles extends StatefulWidget {
@@ -29,7 +31,14 @@ class _ProfilesState extends State<Profiles> {
       stream: _userService.user,
       builder: (context, userSnapshot) {
         if (userSnapshot.connectionState != ConnectionState.active) {
-          return SizedBox.shrink();
+          return Container(
+            child: Center(
+              child: SpinKitThreeBounce(
+                color: Theme.of(context).primaryColor,
+                size: 15.0,
+              ),
+            ),
+          );
         }
 
         return FutureBuilder(
@@ -49,11 +58,20 @@ class _ProfilesState extends State<Profiles> {
 
             return ProfileList(
               onTap: (profile) => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PublicProfileScreen(
-                            userModel: profile,
-                          ))),
+                context,
+                FadeRouteTransition(
+                  page: PublicProfileScreen(
+                    currentUserModel: userSnapshot.data,
+                    userModel: profile,
+                  ),
+                ),
+                // MaterialPageRoute(
+                //   builder: (context) => PublicProfileScreen(
+                //     currentUserModel: userSnapshot.data,
+                //     userModel: profile,
+                //   ),
+                // ),
+              ),
               profiles: usersSnapshot.data
                   .where((user) => user.uid != userSnapshot.data.uid)
                   .toList(),

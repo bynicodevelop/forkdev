@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_api_services/UsersService.dart';
 import 'package:flutter_profile_list/flutter_profile_list.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:forkdev/screens/ChatScreen.dart';
+import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
 
 class Contacts extends StatefulWidget {
@@ -36,7 +38,14 @@ class _ContactsState extends State<Contacts> {
           future: _usersService.getUsersByReference(user.data.followersList),
           builder: (context, users) {
             if (users.connectionState != ConnectionState.done) {
-              return SizedBox.shrink();
+              return Container(
+                child: Center(
+                  child: SpinKitThreeBounce(
+                    color: Theme.of(context).primaryColor,
+                    size: 15.0,
+                  ),
+                ),
+              );
             }
 
             if (users.data.length == 0) {
@@ -48,13 +57,15 @@ class _ContactsState extends State<Contacts> {
             }
 
             return ProfileList(
-              onTap: (profile) => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatScreen(
-                      userModel: profile,
-                    ),
-                  )),
+              onTap: (profile) async => await Navigator.push(
+                context,
+                FadeRouteTransition(
+                  page: ChatScreen(
+                    currentUserModel: user.data,
+                    userModel: profile,
+                  ),
+                ),
+              ),
               profiles: users.data.toList(),
             );
           },

@@ -35,7 +35,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Profile'),
+        titleSpacing: 0,
+        title: Text('Profile'.toUpperCase()),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [

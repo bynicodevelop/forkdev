@@ -4,7 +4,9 @@ import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_item_list/widgets/Item.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:forkdev/screens/ChatScreen.dart';
+import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Messages extends StatefulWidget {
   Messages({Key key}) : super(key: key);
@@ -40,7 +42,14 @@ class _MessagesState extends State<Messages> {
           future: _chatService.lastMessages,
           builder: (context, chatSnapshot) {
             if (chatSnapshot.connectionState != ConnectionState.done) {
-              return SizedBox.shrink();
+              return Container(
+                child: Center(
+                  child: SpinKitThreeBounce(
+                    color: Theme.of(context).primaryColor,
+                    size: 15.0,
+                  ),
+                ),
+              );
             }
 
             if (chatSnapshot.data.length == 0) {
@@ -62,14 +71,19 @@ class _MessagesState extends State<Messages> {
                     onTap: (uid) async {
                       await Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => ChatScreen(
-                            userModel: UserModel(uid: uid),
+                        FadeRouteTransition(
+                          page: ChatScreen(
+                            currentUserModel: user.data,
+                            userModel: UserModel(
+                              uid: uid,
+                              username: chatSnapshot.data[index]['user']
+                                  ['username'],
+                              avatarURL: chatSnapshot.data[index]['user']
+                                  ['avatarURL'],
+                            ),
                           ),
                         ),
                       );
-
-                      setState(() => print('Refreshing view...'));
                     },
                     uid: chatSnapshot.data[index]['user']['uid'],
                     label: chatSnapshot.data[index]['user']['username'],

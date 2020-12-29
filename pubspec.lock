@@ -187,7 +187,7 @@ packages:
       name: flutter_api_services
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.3+1"
   flutter_auth_form:
     dependency: "direct main"
     description:
@@ -266,7 +266,7 @@ packages:
     source: hosted
     version: "0.0.1+4"
   flutter_spinkit:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_spinkit
       url: "https://pub.dartlang.org"
