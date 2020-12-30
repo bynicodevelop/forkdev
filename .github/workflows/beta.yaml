@@ -1,11 +1,13 @@
 name: Flutter release (beta)
 
 on:
-  push:
-    branches: [develop]
+  pull_request:
+    branches: [beta]
+    types: [closed]
 
 jobs:
   release:
+    if: github.event.pull_request.merged == true
     name: Build and release
     runs-on: ubuntu-20.04
 
