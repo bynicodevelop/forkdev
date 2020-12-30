@@ -1,0 +1,77 @@
+name: Flutter release (beta)
+
+on:
+  pull_request:
+    branches: [beta]
+    types: [closed]
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+    name: Build and release
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Cache pub dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      - name: Download pub dependencies
+        run: flutter pub get
+
+      - name: Download Android keystore
+        id: android_keystore
+        uses: timheuer/base64-to-file@v1.0.3
+        with:
+          fileName: key.jks
+          encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+
+      - name: Create key.properties
+        run: |
+          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
+
+      - name: Create google-services.json
+        id: google_services
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: "google-services.json"
+          encodedString: ${{ secrets.GOOGLE_SERVICES_DEVELOPMENT }}
+
+      - name: Show google-services.json file
+        run: |
+          mv ${{ steps.google_services.outputs.filePath }} android/app/google-services.json
+
+      - name: Build Android App Bundle
+        run: flutter build appbundle --release
+
+      - name: "Clean releases"
+        uses: glassechidna/artifact-cleaner@master
+        with:
+          minimumAge: 86400
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release
+          path: build/app/outputs/bundle/release/app-release.aab

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_services/UserService.dart';
+import 'package:flutter_models/models/UserModel.dart';
 import 'package:forkdev/screens/ProfileScreen.dart';
+import 'package:forkdev/screens/navigationbar/Contacts.dart';
+import 'package:forkdev/screens/navigationbar/Messages.dart';
+import 'package:forkdev/screens/navigationbar/Profiles.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -9,23 +15,66 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UserService _userService;
+
+  final List<String> _titles = List<String>();
+  final List<Widget> _widgets = List<Widget>();
+
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _userService = Provider.of<UserService>(context, listen: false);
+
+    _titles.addAll([
+      'Messages',
+      'Contacts',
+      'Profiles',
+    ]);
+
+    _widgets.addAll([
+      Messages(),
+      Contacts(),
+      Profiles(),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image(
-          image: AssetImage('assets/images/name.png'),
-          width: 150.0,
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Hero(
+              tag: 'logo',
+              child: Image(
+                image: AssetImage('assets/images/logo.png'),
+                width: 30.0,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                bottom: 3.0,
+              ),
+              child: Text(_titles.elementAt(_currentIndex).toUpperCase()),
+            )
+          ],
         ),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: () async {
+                  final UserModel userModel = await _userService.user.first;
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
+                      builder: (context) => ProfileScreen(userModel: userModel),
                     ),
                   );
                 },
@@ -49,7 +98,25 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Text('home'),
+      body: _widgets.elementAt(_currentIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (value) => setState(() => _currentIndex = value),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_rounded),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contacts),
+            label: 'Contacts',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Profiles',
+          ),
+        ],
+      ),
     );
   }
 }
