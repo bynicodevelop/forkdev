@@ -40,7 +40,7 @@ dependencies:
     # path: "../plugins/flutter_profile_list"
 
   flutter_profile_card:
-    ^0.0.2+3
+    ^0.0.3
     # path: "../plugins/flutter_profile_card"
 
   flutter_chat_components:
