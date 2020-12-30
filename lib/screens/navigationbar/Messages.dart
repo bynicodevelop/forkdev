@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_services/ChatService.dart';
 import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_item_list/widgets/Item.dart';
+import 'package:flutter_item_list/widgets/MessageItem.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:forkdev/screens/ChatScreen.dart';
 import 'package:forkdev/transitions/FadeRouteTransition.dart';
@@ -60,38 +61,37 @@ class _MessagesState extends State<Messages> {
               );
             }
 
-            return Padding(
+            return ListView.builder(
               padding: const EdgeInsets.only(
                 top: 10.0,
               ),
-              child: ListView.builder(
-                itemCount: chatSnapshot.data.length,
-                itemBuilder: (context, index) {
-                  return Item(
-                    onTap: (uid) async {
-                      await Navigator.push(
-                        context,
-                        FadeRouteTransition(
-                          page: ChatScreen(
-                            currentUserModel: user.data,
-                            userModel: UserModel(
-                              uid: uid,
-                              username: chatSnapshot.data[index]['user']
-                                  ['username'],
-                              avatarURL: chatSnapshot.data[index]['user']
-                                  ['avatarURL'],
-                            ),
+              itemCount: chatSnapshot.data.length,
+              itemBuilder: (context, index) {
+                return MessageItem(
+                  onTap: (uid) async {
+                    await Navigator.push(
+                      context,
+                      FadeRouteTransition(
+                        page: ChatScreen(
+                          currentUserModel: user.data,
+                          userModel: UserModel(
+                            uid: uid,
+                            username: chatSnapshot.data[index]['user']
+                                ['username'],
+                            avatarURL: chatSnapshot.data[index]['user']
+                                ['avatarURL'],
                           ),
                         ),
-                      );
-                    },
-                    uid: chatSnapshot.data[index]['user']['uid'],
-                    label: chatSnapshot.data[index]['user']['username'],
-                    subLabel: chatSnapshot.data[index]['text'],
-                    avatarURL: chatSnapshot.data[index]['user']['avatarURL'],
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                  uid: chatSnapshot.data[index]['user']['uid'],
+                  label: chatSnapshot.data[index]['user']['username'],
+                  subLabel: chatSnapshot.data[index]['text'],
+                  avatarURL: chatSnapshot.data[index]['user']['avatarURL'],
+                  sendAt: chatSnapshot.data[index]['sendAt'],
+                );
+              },
             );
           },
         );
