@@ -65,14 +65,10 @@ class _ProfilesState extends State<Profiles> {
                     userModel: profile,
                   ),
                 ),
-                // MaterialPageRoute(
-                //   builder: (context) => PublicProfileScreen(
-                //     currentUserModel: userSnapshot.data,
-                //     userModel: profile,
-                //   ),
-                // ),
               ),
               profiles: usersSnapshot.data
+                  .where((user) => user.username != null)
+                  .where((user) => user.status != null)
                   .where((user) => user.uid != userSnapshot.data.uid)
                   .toList(),
             );
