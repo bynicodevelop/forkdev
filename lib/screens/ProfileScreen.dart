@@ -10,7 +10,12 @@ import 'package:forkdev/screens/AuthScreen.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key key}) : super(key: key);
+  final UserModel userModel;
+
+  ProfileScreen({
+    Key key,
+    this.userModel,
+  }) : super(key: key);
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -28,6 +33,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _userService = Provider.of<UserService>(context, listen: false);
     _firestorageService =
         Provider.of<FirestorageService>(context, listen: false);
+
+    _map.putIfAbsent(
+      UserModel.AVATAR_URL,
+      () => FieldModel(
+        id: UserModel.AVATAR_URL,
+        icon: null,
+        label: '',
+        defaultValue: widget.userModel.username,
+        value: widget.userModel.avatarURL,
+        onUpdated: (value) => print(value),
+        type: TypeField.AVATAR,
+      ),
+    );
+
+    _map.putIfAbsent(
+      UserModel.EMAIL,
+      () => FieldModel(
+        id: UserModel.EMAIL,
+        icon: Icons.email,
+        label: 'Email',
+        value: widget.userModel.email,
+        onUpdated: (value) => print(value),
+      ),
+    );
+
+    _map.putIfAbsent(
+      UserModel.USERNAME,
+      () => FieldModel(
+          id: UserModel.USERNAME,
+          icon: Icons.person,
+          label: 'Username',
+          value: widget.userModel.username,
+          onUpdated: (value) => print(value),
+          fieldPlaceholder: 'Enter your username'),
+    );
+
+    _map.putIfAbsent(
+      UserModel.STATUS,
+      () => FieldModel(
+          id: UserModel.STATUS,
+          icon: Icons.info,
+          label: 'Status',
+          value: widget.userModel.status,
+          onUpdated: (value) => print(value),
+          fieldPlaceholder: 'Enter something about you'),
+    );
   }
 
   @override
@@ -71,82 +122,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: StreamBuilder(
-        stream: _userService.user,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.active) {
-            return SizedBox.shrink();
+      body: ProfileManager(
+        onCancled: (FieldModel fieldMode) => null,
+        onUpdated: (dynamic value, FieldModel fieldModel) async {
+          if (_map[fieldModel.id].id == UserModel.AVATAR_URL) {
+            value = await _firestorageService.uploadAvatar(
+                value, widget.userModel.uid);
           }
 
-          final userModel = snapshot.data;
+          try {
+            await _userService.update(_map[fieldModel.id].id, value);
+          } on AuthenticationException catch (e) {
+            print(e.code);
+          }
 
-          _map.putIfAbsent(
-            UserModel.AVATAR_URL,
-            () => FieldModel(
-              id: UserModel.AVATAR_URL,
-              icon: null,
-              label: '',
-              defaultValue: userModel.username,
-              value: userModel.avatarURL,
-              onUpdated: (value) => print(value),
-              type: TypeField.AVATAR,
-            ),
-          );
-
-          _map.putIfAbsent(
-            UserModel.EMAIL,
-            () => FieldModel(
-              id: UserModel.EMAIL,
-              icon: Icons.email,
-              label: 'Email',
-              value: userModel.email,
-              onUpdated: (value) => print(value),
-            ),
-          );
-
-          _map.putIfAbsent(
-            UserModel.USERNAME,
-            () => FieldModel(
-                id: UserModel.USERNAME,
-                icon: Icons.person,
-                label: 'Username',
-                value: userModel.username,
-                onUpdated: (value) => print(value),
-                fieldPlaceholder: 'Enter your username'),
-          );
-
-          _map.putIfAbsent(
-            UserModel.STATUS,
-            () => FieldModel(
-                id: UserModel.STATUS,
-                icon: Icons.info,
-                label: 'Status',
-                value: userModel.status,
-                onUpdated: (value) => print(value),
-                fieldPlaceholder: 'Enter something about you'),
-          );
-
-          return ProfileManager(
-            onCancled: (FieldModel fieldMode) => null,
-            onUpdated: (dynamic value, FieldModel fieldModel) async {
-              if (_map[fieldModel.id].id == UserModel.AVATAR_URL) {
-                value = await _firestorageService.uploadAvatar(
-                    value, userModel.uid);
-              }
-
-              try {
-                await _userService.update(_map[fieldModel.id].id, value);
-              } on AuthenticationException catch (e) {
-                print(e.code);
-              }
-
-              _map[fieldModel.id].updateValue = value;
-
-              setState(() => print('refresh view...'));
-            },
-            fields: _map.values.toList(),
-          );
+          setState(() => _map[fieldModel.id].updateValue = value);
         },
+        fields: _map.values.toList(),
       ),
     );
   }

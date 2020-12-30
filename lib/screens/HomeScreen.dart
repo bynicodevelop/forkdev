@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_services/UserService.dart';
+import 'package:flutter_models/models/UserModel.dart';
 import 'package:forkdev/screens/ProfileScreen.dart';
 import 'package:forkdev/screens/navigationbar/Contacts.dart';
 import 'package:forkdev/screens/navigationbar/Messages.dart';
 import 'package:forkdev/screens/navigationbar/Profiles.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -12,13 +15,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UserService _userService;
+
   final List<String> _titles = List<String>();
   final List<Widget> _widgets = List<Widget>();
+
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
+
+    _userService = Provider.of<UserService>(context, listen: false);
 
     _titles.addAll([
       'Messages',
@@ -61,10 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: () async {
+                  final UserModel userModel = await _userService.user.first;
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
+                      builder: (context) => ProfileScreen(userModel: userModel),
                     ),
                   );
                 },
