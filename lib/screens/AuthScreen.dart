@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_api_services/exceptions/AuthenticationException.dart';
 import 'package:flutter_auth_form/flutter_auth_form.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:forkdev/screens/HomeScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,9 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  GlobalKey<ScaffoldState> _scafflodKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scafflodKey = GlobalKey<ScaffoldState>();
+
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,58 +45,90 @@ class _AuthScreenState extends State<AuthScreen> {
             padding: const EdgeInsets.symmetric(
               horizontal: 20.0,
             ),
-            child: AuthForm(
-              title: 'Connexion',
-              buttonLabel: 'Connexion',
-              emailLabel: 'Enter your email',
-              passwordLabel: 'Enter your password',
-              onPressed: (userModel) async {
-                UserService userService =
-                    Provider.of<UserService>(context, listen: false);
+            child: !_loading
+                ? AuthForm(
+                    title: 'Connexion',
+                    buttonLabel: 'Connexion',
+                    emailLabel: 'Enter your email',
+                    passwordLabel: 'Enter your password',
+                    onPressed: (userModel) async {
+                      setState(() => _loading = !_loading);
 
-                try {
-                  await userService.signInWithEmailAndPassword(
-                    userModel.email,
-                    userModel.password,
-                  );
+                      UserService userService =
+                          Provider.of<UserService>(context, listen: false);
 
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ),
-                  );
-                } on AuthenticationException catch (e) {
-                  if (e.code == AuthenticationException.USER_NOT_FOUND) {
-                    try {
-                      await userService.signUpWithEmailAndPassword(
-                        userModel.email,
-                        userModel.password,
-                      );
+                      try {
+                        await userService.signInWithEmailAndPassword(
+                          userModel.email,
+                          userModel.password,
+                        );
 
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      } on AuthenticationException catch (e) {
+                        if (e.code == AuthenticationException.USER_NOT_FOUND) {
+                          try {
+                            await userService.signUpWithEmailAndPassword(
+                              userModel.email,
+                              userModel.password,
+                            );
+
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
+                              ),
+                            );
+                          } on AuthenticationException catch (e) {
+                            print(e.code);
+                            _notify('Unexpected error occurred', 'Dissimiss');
+                            setState(() => _loading = !_loading);
+                          }
+                        }
+
+                        if (e.code ==
+                            AuthenticationException.WRONG_CREDENTIALS) {
+                          setState(() => _loading = !_loading);
+                          _notify('Wrong credentials', 'Dissimiss');
+                        }
+
+                        if (e.code ==
+                            AuthenticationException.TOO_MANY_REQUESTS) {
+                          setState(() => _loading = !_loading);
+                          _notify(
+                              'Account blocked: Too many login attempts (try again later)',
+                              'Dissimiss');
+                        }
+                      }
+                    },
+                  )
+                : Column(
+                    children: [
+                      Text(
+                        'Welcome'.toUpperCase(),
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      Text(
+                        'We prepare your personal space',
+                        style: Theme.of(context).textTheme.headline3.copyWith(
+                              fontStyle: FontStyle.italic,
+                            ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 40.0,
                         ),
-                      );
-                    } on AuthenticationException catch (e) {
-                      print(e.code);
-                    }
-                  }
-
-                  if (e.code == AuthenticationException.WRONG_CREDENTIALS) {
-                    _notify('Wrong credentials', 'Dissimiss');
-                  }
-
-                  if (e.code == AuthenticationException.TOO_MANY_REQUESTS) {
-                    _notify(
-                        'Account blocked: Too many login attempts (try again later)',
-                        'Dissimiss');
-                  }
-                }
-              },
-            ),
+                        child: SpinKitThreeBounce(
+                          color: Theme.of(context).primaryColor,
+                          size: 15.0,
+                        ),
+                      )
+                    ],
+                  ),
           ),
         ),
       ),
