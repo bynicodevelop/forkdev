@@ -20,6 +20,11 @@ class App extends StatelessWidget {
                     fontSize: 60.0,
                     fontWeight: FontWeight.w200,
                   ),
+              headline2: Theme.of(context).textTheme.headline2.copyWith(
+                    color: Colors.black,
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.w200,
+                  ),
               headline3: Theme.of(context).textTheme.headline2.copyWith(
                     color: Colors.black,
                     fontSize: 20.0,

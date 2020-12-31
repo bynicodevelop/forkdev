@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_api_services/UserService.dart';
+import 'package:forkdev/Bootstrap.dart';
 import 'package:forkdev/screens/AuthScreen.dart';
-import 'package:forkdev/screens/HomeScreen.dart';
 import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           FadeRouteTransition(
-            page: HomeScreen(),
+            page: Bootstrap(),
           ),
         );
       }

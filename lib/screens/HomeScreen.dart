@@ -9,7 +9,12 @@ import 'package:forkdev/screens/widgets/LoadingIndicator.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  final UserModel userModel;
+
+  const HomeScreen({
+    Key key,
+    this.userModel,
+  }) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

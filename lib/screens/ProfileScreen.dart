@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_services/FirestorageService.dart';
 import 'package:flutter_api_services/UserService.dart';
-import 'package:flutter_api_services/exceptions/AuthenticationException.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:flutter_profile_manager/enums/TypeField.dart';
 import 'package:flutter_profile_manager/flutter_profile_manager.dart';
 import 'package:flutter_profile_manager/models/Field.dart';
 import 'package:forkdev/screens/AuthScreen.dart';
+import 'package:forkdev/services/ProfileService.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -23,16 +23,24 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final Map<String, FieldModel> _map = Map<String, FieldModel>();
+
+  ProfileService _profileService;
+
   UserService _userService;
-  FirestorageService _firestorageService;
 
   @override
   void initState() {
     super.initState();
 
-    _userService = Provider.of<UserService>(context, listen: false);
-    _firestorageService =
+    FirestorageService firestorageService =
         Provider.of<FirestorageService>(context, listen: false);
+
+    _userService = Provider.of<UserService>(context, listen: false);
+
+    _profileService = ProfileService(
+      firestorageService: firestorageService,
+      userService: _userService,
+    );
 
     _map.putIfAbsent(
       UserModel.AVATAR_URL,
@@ -125,16 +133,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ProfileManager(
         onCancled: (FieldModel fieldMode) => null,
         onUpdated: (dynamic value, FieldModel fieldModel) async {
-          if (_map[fieldModel.id].id == UserModel.AVATAR_URL) {
-            value = await _firestorageService.uploadAvatar(
-                value, widget.userModel.uid);
-          }
-
-          try {
-            await _userService.update(_map[fieldModel.id].id, value);
-          } on AuthenticationException catch (e) {
-            print(e.code);
-          }
+          await _profileService.updateProfile(
+              widget.userModel.uid, value, _map[fieldModel.id].id);
 
           setState(() => _map[fieldModel.id].updateValue = value);
         },

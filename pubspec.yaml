@@ -47,6 +47,8 @@ dependencies:
     ^0.0.2+2
     # path: "../plugins/flutter_chat"
 
+  flutter_inputs: ^0.0.1
+
   flutter_spinkit: ^4.1.2+1
 
   # The following adds the Cupertino Icons font to your application.
