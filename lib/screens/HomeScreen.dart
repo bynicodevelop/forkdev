@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_models/models/UserModel.dart';
+import 'package:forkdev/helpers/translate.dart';
 import 'package:forkdev/screens/ProfileScreen.dart';
 import 'package:forkdev/screens/navigationbar/Contacts.dart';
 import 'package:forkdev/screens/navigationbar/Messages.dart';
@@ -36,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _userService = Provider.of<UserService>(context, listen: false);
 
     _titles.addAll([
-      'Messages',
-      'Contacts',
-      'Profiles',
+      'commons.messages',
+      'commons.contacts',
+      'commons.profiles',
     ]);
 
     _userService.user.listen((userModel) {
@@ -71,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 left: 10.0,
                 bottom: 3.0,
               ),
-              child: Text(_titles.elementAt(_currentIndex).toUpperCase()),
+              child: Text(
+                  t(context, _titles.elementAt(_currentIndex)).toUpperCase()),
             )
           ],
         ),
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 5.0,
                     ),
                     Text(
-                      'Profile',
+                      t(context, 'commons.profile'),
                     )
                   ],
                 ),
@@ -116,15 +118,15 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_rounded),
-            label: 'Messages',
+            label: t(context, 'commons.messages'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contacts),
-            label: 'Contacts',
+            label: t(context, 'commons.contacts'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            label: 'Profiles',
+            label: t(context, 'commons.profiles'),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:flutter_models/models/UserModel.dart';
 import 'package:flutter_profile_list/flutter_profile_list.dart';
 import 'package:forkdev/screens/ChatScreen.dart';
 import 'package:forkdev/screens/widgets/LoadingIndicator.dart';
+import 'package:forkdev/screens/widgets/NotFound.dart';
 import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
 
@@ -38,10 +39,8 @@ class _ContactsState extends State<Contacts> {
         }
 
         if (users.data.length == 0) {
-          return Container(
-            child: Center(
-              child: Text('No contacts found'),
-            ),
+          return NoFound(
+            label: 'Contacts.label',
           );
         }
 

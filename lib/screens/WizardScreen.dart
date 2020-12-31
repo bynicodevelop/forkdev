@@ -31,7 +31,6 @@ class _WizardScreenState extends State<WizardScreen> {
   ProfileService _profileService;
 
   Future<void> _onSave(String key, String value) async {
-    print('value: $value');
     await _profileService.updateProfile(widget.userModel.uid, value, key);
 
     setState(() => _index++);

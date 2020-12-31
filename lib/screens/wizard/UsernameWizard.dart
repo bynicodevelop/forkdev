@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:flutter_inputs/MainButton.dart';
 import 'package:flutter_inputs/forms/inputs/TextInput.dart';
+import 'package:forkdev/helpers/translate.dart';
 
 class UsernameWizard extends StatelessWidget {
   final UserModel userModel;
@@ -29,7 +30,7 @@ class UsernameWizard extends StatelessWidget {
               bottom: 20.0,
             ),
             child: Text(
-              "Let's start by choosing your username",
+              t(context, 'UsernameWizard.title'),
               style: Theme.of(context).textTheme.headline2,
             ),
           ),
@@ -39,10 +40,10 @@ class UsernameWizard extends StatelessWidget {
             ),
             child: TextInput(
               controller: _usernameController,
-              placeholder: 'Enter your username',
+              placeholder: t(context, 'UsernameWizard.placeholder'),
               onChanged: (value) => print(value),
               validator: (value) =>
-                  value.isEmpty ? 'Please enter your username' : null,
+                  value.isEmpty ? t(context, 'UsernameWizard.validator') : null,
             ),
           ),
           Padding(
@@ -52,7 +53,7 @@ class UsernameWizard extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: MainButton(
-                label: 'Save',
+                label: t(context, 'UsernameWizard.butto'),
                 onPressed: () async {
                   if (_keyForm.currentState.validate()) {
                     onSave(UserModel.USERNAME, _usernameController.text);
