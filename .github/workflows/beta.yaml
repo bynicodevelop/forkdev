@@ -38,8 +38,8 @@ jobs:
       - name: Download pub dependencies
         run: flutter pub get
 
-      - name: Generate icons
-        run: flutter pub run flutter_launcher_icons:main
+      # - name: Generate icons
+      # run: flutter pub run flutter_launcher_icons:main
 
       - name: Download Android keystore
         id: android_keystore
