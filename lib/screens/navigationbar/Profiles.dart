@@ -5,6 +5,7 @@ import 'package:flutter_models/models/UserModel.dart';
 import 'package:flutter_profile_list/flutter_profile_list.dart';
 import 'package:forkdev/screens/PublicProfileScreen.dart';
 import 'package:forkdev/screens/widgets/LoadingIndicator.dart';
+import 'package:forkdev/screens/widgets/NotFound.dart';
 import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
 
@@ -41,10 +42,8 @@ class _ProfilesState extends State<Profiles> {
         }
 
         if (usersSnapshot.data.length == 0) {
-          return Container(
-            child: Center(
-              child: Text('No profile found'),
-            ),
+          return NoFound(
+            label: 'Profiles.label',
           );
         }
 
