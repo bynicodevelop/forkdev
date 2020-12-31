@@ -30,6 +30,12 @@
     "StatusWizard.placeholder": "Entrez quelque chose à propos de vous",
     "StatusWizard.validator": "Merci de saisir quelque chose",
     "StatusWizard.button": "Terminer",
+    
+    "ProfileManager.cancel.label": "Annuler",
+    "ProfileManager.submit.label": "Enregistrer",
+    "ProfileManager.default.content": "Entrez un contenu",
+
+    "ProfileCard.about.label": "A propos",
 
     "FinishWizard.title": "Nous finissons de configurer votre compte",
     
@@ -37,5 +43,7 @@
 
     "Messages.label": "Aucun message",
 
-    "Profiles.label": "Aucun profil"
+    "Profiles.label": "Aucun profil",
+
+    "Chat.message.not.found": "Aucun message"
 }

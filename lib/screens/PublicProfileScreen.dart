@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_services/UsersService.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:flutter_profile_card/flutter_profile_card.dart';
+import 'package:forkdev/helpers/translate.dart';
 import 'package:provider/provider.dart';
 
 class PublicProfileScreen extends StatefulWidget {
@@ -52,6 +53,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
               await _usersService.updateRelations(
                   widget.currentUserModel.uid, snapshotUserModel.data.uid);
             },
+            aboutLabel: t(context, "ProfileCard.about.label"),
           );
         },
       ),

@@ -27,9 +27,9 @@ dependencies:
   flutter_auth_form:
     ^0.0.2
     # path: "../plugins/flutter_auth_form"
-  flutter_profile_manager: ^0.0.1+5
+  flutter_profile_manager: ^0.0.1+6
   flutter_api_services:
-    ^0.0.3+1
+    ^0.0.3+4
     # path: "../plugins/flutter_api_services"
 
   flutter_profile_avatar: ^0.0.2+1
@@ -42,11 +42,11 @@ dependencies:
     # path: "../plugins/flutter_profile_list"
 
   flutter_profile_card:
-    ^0.0.3
+    ^0.0.3+1
     # path: "../plugins/flutter_profile_card"
 
   flutter_chat_components:
-    ^0.0.2+2
+    ^0.0.2+4
     # path: "../plugins/flutter_chat"
 
   flutter_inputs: ^0.0.1

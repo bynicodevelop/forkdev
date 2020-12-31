@@ -201,7 +201,7 @@ packages:
       name: flutter_api_services
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3+1"
+    version: "0.0.3+4"
   flutter_auth_form:
     dependency: "direct main"
     description:
@@ -222,7 +222,7 @@ packages:
       name: flutter_chat_components
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2+2"
+    version: "0.0.2+4"
   flutter_inputs:
     dependency: "direct main"
     description:
@@ -276,7 +276,7 @@ packages:
       name: flutter_profile_card
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.3+1"
   flutter_profile_list:
     dependency: "direct main"
     description:
@@ -290,7 +290,7 @@ packages:
       name: flutter_profile_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+5"
+    version: "0.0.1+6"
   flutter_spinkit:
     dependency: "direct main"
     description:
