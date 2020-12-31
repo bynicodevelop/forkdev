@@ -3,8 +3,10 @@ import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_api_services/exceptions/AuthenticationException.dart';
 import 'package:flutter_auth_form/flutter_auth_form.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:forkdev/Bootstrap.dart';
 import 'package:forkdev/helpers/translate.dart';
 import 'package:forkdev/screens/HomeScreen.dart';
+import 'package:forkdev/screens/WizardScreen.dart';
 import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -67,7 +69,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
+                            builder: (context) => Bootstrap(),
                           ),
                         );
                       } on AuthenticationException catch (e) {
@@ -81,7 +83,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
+                                builder: (context) => WizardScreen(
+                                  userModel: userModel,
+                                ),
                               ),
                             );
                           } on AuthenticationException catch (e) {

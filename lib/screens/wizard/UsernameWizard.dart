@@ -53,7 +53,7 @@ class UsernameWizard extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: MainButton(
-                label: t(context, 'UsernameWizard.butto'),
+                label: t(context, 'UsernameWizard.button'),
                 onPressed: () async {
                   if (_keyForm.currentState.validate()) {
                     onSave(UserModel.USERNAME, _usernameController.text);
