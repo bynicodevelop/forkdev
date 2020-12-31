@@ -1,0 +1,49 @@
+{
+    "commons.messages": "Messages",
+    "commons.contacts": "Contacts",
+    "commons.profiles": "Profiles",
+    "commons.profile": "Profile",
+
+    "commons.logout": "Logout",
+    
+    "commons.email": "Email",
+    "commons.username": "Username",
+    "commons.enter.username": "Enter your username",
+    "commons.status": "About",
+    "commons.enter.status": "Enter something about you",
+
+    "AuthForm.welcome": "Welcome",
+    "AuthForm.connexion": "Connexion",
+    "AuthForm.enter.email": "Enter your mail",
+    "AuthForm.enter.password": "Enter a password",
+    "AuthForm.prepare.space": "We prepare your space",
+    "AuthForm.wrong.credentials": "Your login details are not correct",
+    "AuthForm.account.blocked": "Account blocked: too many attempts have been made (try again later)",
+    "AuthForm.unexepected.error": "An error has occurred",
+
+    "UsernameWizard.title": "Let's start by choosing your username",
+    "UsernameWizard.placeholder": "Enter your username",
+    "UsernameWizard.validator": "Please enter your username",
+    "UsernameWizard.button": "Save",
+
+    "StatusWizard.title": "Add something about you",
+    "StatusWizard.placeholder": "Enter a status",
+    "StatusWizard.validator": "Please enter something",
+    "StatusWizard.button": "Terminate",
+
+    "ProfileManager.cancel.label": "Cancel",
+    "ProfileManager.submit.label": "Save",
+    "ProfileManager.default.content": "Enter a content",
+
+    "ProfileCard.about.label": "About",
+
+    "FinishWizard.title": "We finish setting up your account",
+
+    "Contacts.label": "Contact not found",
+
+    "Messages.label": "Message  not found",
+
+    "Profiles.label": "Profile  not found",
+
+    "Chat.message.not.found": "Message not found"
+}

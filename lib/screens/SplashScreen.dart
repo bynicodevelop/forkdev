@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_api_services/UserService.dart';
+import 'package:forkdev/Bootstrap.dart';
 import 'package:forkdev/screens/AuthScreen.dart';
-import 'package:forkdev/screens/HomeScreen.dart';
 import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
+    // UserService _userService = Provider.of<UserService>(context, listen: false);
+    // _userService.signOut();
 
     _streamSubscription =
         Provider.of<UserService>(context, listen: false).user.listen((user) {
@@ -38,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           FadeRouteTransition(
-            page: HomeScreen(),
+            page: Bootstrap(),
           ),
         );
       }
@@ -63,9 +66,12 @@ class _SplashScreenState extends State<SplashScreen> {
             padding: const EdgeInsets.symmetric(
               vertical: 20.0,
             ),
-            child: Image(
-              image: AssetImage('assets/images/logo.png'),
-              width: 150.0,
+            child: Hero(
+              tag: 'logo',
+              child: Image(
+                image: AssetImage('assets/images/logo.png'),
+                width: 150.0,
+              ),
             ),
           ),
           Padding(
