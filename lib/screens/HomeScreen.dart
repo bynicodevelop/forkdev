@@ -5,10 +5,16 @@ import 'package:forkdev/screens/ProfileScreen.dart';
 import 'package:forkdev/screens/navigationbar/Contacts.dart';
 import 'package:forkdev/screens/navigationbar/Messages.dart';
 import 'package:forkdev/screens/navigationbar/Profiles.dart';
+import 'package:forkdev/screens/widgets/LoadingIndicator.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  final UserModel userModel;
+
+  const HomeScreen({
+    Key key,
+    this.userModel,
+  }) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _widgets = List<Widget>();
 
   int _currentIndex = 0;
+  bool _loading = true;
 
   @override
   void initState() {
@@ -34,11 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
       'Profiles',
     ]);
 
-    _widgets.addAll([
-      Messages(),
-      Contacts(),
-      Profiles(),
-    ]);
+    _userService.user.listen((userModel) {
+      _widgets.addAll([
+        Messages(userModel: userModel),
+        Contacts(userModel: userModel),
+        Profiles(userModel: userModel),
+      ]);
+
+      setState(() => _loading = !_loading);
+    });
   }
 
   @override
@@ -98,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: _widgets.elementAt(_currentIndex),
+      body: !_loading ? _widgets.elementAt(_currentIndex) : LoadingIndicator(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (value) => setState(() => _currentIndex = value),

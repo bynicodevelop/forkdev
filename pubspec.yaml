@@ -33,10 +33,10 @@ dependencies:
   flutter_profile_avatar: ^0.0.2+1
 
   flutter_item_list:
-    ^0.0.1
+    ^0.0.2
     # path: "../plugins/flutter_item_list"
   flutter_profile_list:
-    ^0.0.3
+    ^0.0.3+1
     # path: "../plugins/flutter_profile_list"
 
   flutter_profile_card:
@@ -46,6 +46,8 @@ dependencies:
   flutter_chat_components:
     ^0.0.2+2
     # path: "../plugins/flutter_chat"
+
+  flutter_inputs: ^0.0.1
 
   flutter_spinkit: ^4.1.2+1
 
