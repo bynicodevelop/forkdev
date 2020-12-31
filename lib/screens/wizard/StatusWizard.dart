@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:flutter_inputs/MainButton.dart';
 import 'package:flutter_inputs/forms/inputs/TextInput.dart';
+import 'package:forkdev/helpers/translate.dart';
 
 class StatusWizard extends StatelessWidget {
   final UserModel userModel;
@@ -29,7 +30,7 @@ class StatusWizard extends StatelessWidget {
               bottom: 20.0,
             ),
             child: Text(
-              "Add something about you",
+              t(context, 'StatusWizard.title'),
               style: Theme.of(context).textTheme.headline2,
             ),
           ),
@@ -39,10 +40,10 @@ class StatusWizard extends StatelessWidget {
             ),
             child: TextInput(
               controller: _usernameController,
-              placeholder: 'Enter a status',
+              placeholder: t(context, 'StatusWizard.placeholder'),
               onChanged: (value) => print(value),
               validator: (value) =>
-                  value.isEmpty ? 'Please enter something' : null,
+                  value.isEmpty ? t(context, 'StatusWizard.validator') : null,
             ),
           ),
           Padding(
@@ -52,7 +53,7 @@ class StatusWizard extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: MainButton(
-                label: 'Terminate',
+                label: t(context, 'StatusWizard.button'),
                 onPressed: () async {
                   if (_keyForm.currentState.validate()) {
                     onSave(UserModel.STATUS, _usernameController.text);

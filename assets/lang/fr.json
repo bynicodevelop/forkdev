@@ -1,0 +1,41 @@
+{
+    "commons.messages": "Messages",
+    "commons.contacts": "Contacts",
+    "commons.profiles": "Profils",
+    "commons.profile": "Profil",
+    
+    "commons.logout": "Déconnexion",
+    
+    "commons.email": "Email",
+    "commons.username": "Nom d'utilisateur",
+    "commons.enter.username": "Entrez un nom d'utilisateur",
+    "commons.status": "A propos",
+    "commons.enter.status": "Entrez quelque chose à propos de vous",
+
+    "AuthForm.welcome": "Bienvenue",
+    "AuthForm.connexion": "Connection",
+    "AuthForm.enter.email": "Entrez votre email",
+    "AuthForm.enter.password": "Entrez un mot de passe",
+    "AuthForm.prepare.space": "Nous préparons votre espace",
+    "AuthForm.wrong.credentials": "Vos identifiants ne sont pas corrects",
+    "AuthForm.account.blocked": "Compte bloqué : trop de tentatives ont été effectué (réessayez plus tard)",
+    "AuthForm.unexepected.error": "Une erreur est survenue",
+
+    "UsernameWizard.title": "Commençons par choisir un nom d'utilisateur",
+    "UsernameWizard.placeholder": "Entrez votre nom d'utilisateur",
+    "UsernameWizard.validator": "Saisissez un nom d'utilisateur",
+    "UsernameWizard.button": "Enregistrer",
+
+    "StatusWizard.title": "Ajouter quelque chose à propos de vous",
+    "StatusWizard.placeholder": "Entrez quelque chose à propos de vous",
+    "StatusWizard.validator": "Merci de saisir quelque chose",
+    "StatusWizard.button": "Terminer",
+
+    "FinishWizard.title": "Nous finissons de configurer votre compte",
+    
+    "Contacts.label": "Aucun contacts",
+
+    "Messages.label": "Aucun message",
+
+    "Profiles.label": "Aucun profil"
+}

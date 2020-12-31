@@ -3,6 +3,7 @@ import 'package:flutter_api_services/UserService.dart';
 import 'package:flutter_api_services/exceptions/AuthenticationException.dart';
 import 'package:flutter_auth_form/flutter_auth_form.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:forkdev/helpers/translate.dart';
 import 'package:forkdev/screens/HomeScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -47,10 +48,10 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             child: !_loading
                 ? AuthForm(
-                    title: 'Connexion',
-                    buttonLabel: 'Connexion',
-                    emailLabel: 'Enter your email',
-                    passwordLabel: 'Enter your password',
+                    title: t(context, 'AuthForm.connexion'),
+                    buttonLabel: t(context, 'AuthForm.connexion'),
+                    emailLabel: t(context, 'AuthForm.enter.email'),
+                    passwordLabel: t(context, 'AuthForm.enter.password'),
                     onPressed: (userModel) async {
                       setState(() => _loading = !_loading);
 
@@ -85,7 +86,8 @@ class _AuthScreenState extends State<AuthScreen> {
                             );
                           } on AuthenticationException catch (e) {
                             print(e.code);
-                            _notify('Unexpected error occurred', 'Dissimiss');
+                            _notify(t(context, 'AuthForm.unexepected.error'),
+                                'Dissimiss');
                             setState(() => _loading = !_loading);
                           }
                         }
@@ -93,14 +95,14 @@ class _AuthScreenState extends State<AuthScreen> {
                         if (e.code ==
                             AuthenticationException.WRONG_CREDENTIALS) {
                           setState(() => _loading = !_loading);
-                          _notify('Wrong credentials', 'Dissimiss');
+                          _notify(t(context, 'AuthForm.wrong.credentials'),
+                              'Dissimiss');
                         }
 
                         if (e.code ==
                             AuthenticationException.TOO_MANY_REQUESTS) {
                           setState(() => _loading = !_loading);
-                          _notify(
-                              'Account blocked: Too many login attempts (try again later)',
+                          _notify(t(context, 'AuthForm.account.blocked'),
                               'Dissimiss');
                         }
                       }
@@ -109,11 +111,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 : Column(
                     children: [
                       Text(
-                        'Welcome'.toUpperCase(),
+                        t(context, 'AuthForm.welcome').toUpperCase(),
                         style: Theme.of(context).textTheme.headline1,
                       ),
                       Text(
-                        'We prepare your personal space',
+                        t(context, 'AuthForm.prepare.space'),
                         style: Theme.of(context).textTheme.headline3.copyWith(
                               fontStyle: FontStyle.italic,
                             ),

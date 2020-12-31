@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:forkdev/helpers/translate.dart';
 
 class FinishWizard extends StatelessWidget {
   const FinishWizard({Key key}) : super(key: key);
@@ -14,7 +15,7 @@ class FinishWizard extends StatelessWidget {
             bottom: 20.0,
           ),
           child: Text(
-            "We finish setting up your account",
+            t(context, 'FinishWizard.title'),
             style: Theme.of(context).textTheme.headline2,
             textAlign: TextAlign.center,
           ),

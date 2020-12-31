@@ -4,6 +4,7 @@ import 'package:flutter_item_list/widgets/MessageItem.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:forkdev/screens/ChatScreen.dart';
 import 'package:forkdev/screens/widgets/LoadingIndicator.dart';
+import 'package:forkdev/screens/widgets/NotFound.dart';
 import 'package:forkdev/transitions/FadeRouteTransition.dart';
 import 'package:provider/provider.dart';
 
@@ -45,10 +46,8 @@ class _MessagesState extends State<Messages> {
           }
 
           if (chatSnapshot.data.length == 0) {
-            return Container(
-              child: Center(
-                child: Text('No message found'),
-              ),
+            return NoFound(
+              label: 'Messages.label',
             );
           }
 
