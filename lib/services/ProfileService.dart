@@ -12,7 +12,7 @@ class ProfileService {
     this.userService,
   });
 
-  Future<void> updateProfile(
+  Future<String> updateProfile(
     String uid,
     String value,
     String propertyId,
@@ -26,5 +26,7 @@ class ProfileService {
     } on AuthenticationException catch (e) {
       print(e.code);
     }
+
+    return value;
   }
 }

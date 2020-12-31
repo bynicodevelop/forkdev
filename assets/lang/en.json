@@ -31,11 +31,19 @@
     "StatusWizard.validator": "Please enter something",
     "StatusWizard.button": "Terminate",
 
+    "ProfileManager.cancel.label": "Cancel",
+    "ProfileManager.submit.label": "Save",
+    "ProfileManager.default.content": "Enter a content",
+
+    "ProfileCard.about.label": "About",
+
     "FinishWizard.title": "We finish setting up your account",
 
     "Contacts.label": "Contact not found",
 
     "Messages.label": "Message  not found",
 
-    "Profiles.label": "Profile  not found"
+    "Profiles.label": "Profile  not found",
+
+    "Chat.message.not.found": "Message not found"
 }

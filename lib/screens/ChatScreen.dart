@@ -4,6 +4,7 @@ import 'package:flutter_chat_components/flutter_chat_components.dart';
 import 'package:flutter_models/models/UserModel.dart';
 import 'package:flutter_chat_components/MessageFied.dart';
 import 'package:flutter_profile_avatar/flutter_profile_avatar.dart';
+import 'package:forkdev/helpers/translate.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -70,6 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Chat(
               messages: messagesSnapshot.data,
               currentUserUid: widget.currentUserModel.uid,
+              labelMessageNotFound: t(context, "Chat.message.not.found"),
             ),
           );
         },

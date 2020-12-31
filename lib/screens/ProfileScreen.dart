@@ -136,12 +136,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ProfileManager(
         onCancled: (FieldModel fieldMode) => null,
         onUpdated: (dynamic value, FieldModel fieldModel) async {
-          await _profileService.updateProfile(
+          value = await _profileService.updateProfile(
               widget.userModel.uid, value, _map[fieldModel.id].id);
 
           setState(() => _map[fieldModel.id].updateValue = value);
         },
         fields: _map.values.toList(),
+        cancelLabel: t(context, 'ProfileManager.cancel.label'),
+        submitLabel: t(context, 'ProfileManager.submit.label'),
+        defaultContentLabel: t(context, 'ProfileManager.default.content'),
       ),
     );
   }
